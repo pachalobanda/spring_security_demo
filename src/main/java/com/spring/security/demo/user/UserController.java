@@ -10,6 +10,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -52,6 +53,7 @@ public class UserController {
     }
 
     @PutMapping("disable-account/{userName}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_EXECUTIVE')")
     public ResponseEntity<ApiResponse> disableAccount(@PathVariable("userName") String userName){
         return userService.disableAccount(userName);
     }
