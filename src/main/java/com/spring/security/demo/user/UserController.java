@@ -41,6 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/me")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_EXECUTIVE') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<UserModel> getUserDetails(Authentication authentication){
         return userService.getUser(authentication);
     }
